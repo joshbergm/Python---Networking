@@ -66,7 +66,7 @@ with open(input_csv_file, 'r') as objectlist:
         
         ## JSON RPC API Data
         firewallobject_body = {
-            "method": "set",
+            "method": "add",
             "params": [
                 {
                     "data": [
@@ -84,7 +84,7 @@ with open(input_csv_file, 'r') as objectlist:
             "id": 1
         }
         
-        ## Send request
+        ## Send request to create object
         requests.post(payload_url, json=firewallobject_body, headers=header, verify=False)
         print("Created object: " + name + " - " + subnet)
         
