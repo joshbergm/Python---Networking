@@ -75,7 +75,7 @@ with open(input_csv_file, 'r') as objectlist:
                             'type': "ipmask"
                         }
                     ],
-                    "url": "/pm/config/adom/root/obj/firewall/address" 
+                    "url": f'/pm/config/adom/{adom}/obj/firewall/address'
                 }
             ],
             "session": session_id,
