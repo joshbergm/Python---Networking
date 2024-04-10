@@ -45,7 +45,6 @@ login_request = requests.post(login_url, json=login_body, headers=header, verify
 ## Get Session ID
 session_id_json_ouput = login_request.json()
 session_id = session_id_json_ouput.get('session')
-print(session_id)
 
 ## Read CSV file
 with open(input_csv_file, 'r') as objectlist:
