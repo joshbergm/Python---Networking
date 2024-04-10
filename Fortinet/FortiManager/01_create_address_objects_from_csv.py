@@ -42,6 +42,9 @@ login_body = {
 login_url = f'https://{host}/jsonrpc'
 login_request = requests.post(login_url, json=login_body, headers=header, verify=False)
 
+## Print successfull logon
+print("Logged in successfully!")
+
 ## Get Session ID
 session_id_json_ouput = login_request.json()
 session_id = session_id_json_ouput.get('session')
@@ -70,7 +73,7 @@ with open(input_csv_file, 'r') as objectlist:
                         {
                             "name": name,
                             'subnet': subnet,
-                            'comment': comments,
+                            'comment': comments + '\n' + "Created by: " + pc_username + " with FortiManager Python Script",
                             'type': "ipmask"
                         }
                     ],
@@ -83,6 +86,10 @@ with open(input_csv_file, 'r') as objectlist:
         
         ## Send request
         requests.post(payload_url, json=firewallobject_body, headers=header, verify=False)
+        print("Created object: " + name + " - " + subnet)
+        
+## Let user know script is done
+print("Done")
         
 ## Log out
 logout_body = {
@@ -98,3 +105,6 @@ logout_body = {
 
 logout_url = f'https://{host}/jsonrpc'
 logout_request = requests.post(logout_url, json=logout_body, headers=header, verify=False)
+
+## Print logout
+print("Logged out successfully")
