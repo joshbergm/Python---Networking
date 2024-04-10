@@ -1,8 +1,8 @@
 import csv ##CSV file handling
-import requests
+import requests ##API handling
 import os ##OS file handling
 import getpass ##OS username handling
-import urllib3
+import urllib3 ##Suppress SSL warning
 
 ## Device system variables
 username = input("Username: ")
