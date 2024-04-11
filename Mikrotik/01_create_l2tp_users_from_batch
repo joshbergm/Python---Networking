@@ -25,7 +25,7 @@ mikrotik = {
 pc_username = getpass.getuser()
 
 ## Define file variables
-base_file_path = os.path.join("c:/Users/", pc_username, "Documents/Python-Networking/Mikrotik")
+base_file_path = os.path.join("c:/Users/", pc_username, "Documents/Python-Networking/Mikrotik/")
 input_csv_file = os.path.join(base_file_path, "l2tpclients.csv")
 
 ## Loop trough l2tp clients
