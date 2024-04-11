@@ -1,0 +1,69 @@
+import csv ##CSV file handling
+import os ##OS file handling
+import getpass ##OS username handling
+from netmiko import ConnectHandler
+
+## Device system variables
+mt_username = input("Username: ")
+mt_password = getpass.getpass(prompt="Password: ", stream=None)
+mt_host = input("IP address: ")
+
+## Define Mikrotik variables
+device_type = 'mikrotik_routeros'
+port = '22'
+
+## Define device model
+mikrotik = {
+        'device_type': device_type,
+        'host': mt_host,
+        'username': mt_username,
+        'password': mt_password,
+        'port': port,
+    }
+
+## Get current username
+pc_username = getpass.getuser()
+
+## Define file variables
+base_file_path = os.path.join("c:/Users/", pc_username, "Documents/Python-Networking/Mikrotik")
+input_csv_file = os.path.join(base_file_path, "l2tpclients.csv")
+
+## Loop trough l2tp clients
+with open(input_csv_file, 'r') as configlist:
+    csv_reader = csv.reader(input_csv_file, delimiter=';')
+    next(csv_reader, None)
+    
+    try:
+        net_connect = ConnectHandler(**mikrotik)
+    
+    except Exception as e:
+        print("An error occurred for: ", mt_host, e)
+        exit
+
+    ## Define rows
+    for row in csv_reader:
+        name = row[0]
+        password = row[1]
+        dst_address = row[2]
+        
+        ## L2TP Client
+        service = 'any'
+        profile = 'vpn-profile'
+
+        ## L2TP Server binding
+        l2tp_name = 'l2tp-' + name
+        user = name
+
+        ## IP Route
+        gateway = l2tp_name
+        
+        ## Define commands
+        commands = [
+            'ppp secret add' + ' name=' + name + ' password=' + password + ' service=' + service + ' profile=' + profile,
+            'interface l2tp-server add' + ' name=' + l2tp_name + ' user=' + user,
+            'ip route add' + ' dst-address=' + dst_address + ' gateway=' + gateway
+        ]
+        
+        net_connect.send_config_set(commands)
+        
+    net_connect.disconnect()
