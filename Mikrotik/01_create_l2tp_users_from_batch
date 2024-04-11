@@ -51,7 +51,7 @@ with open(input_csv_file, 'r') as configlist:
         ## L2TP Client
         service = 'any'
         profile = 'vpn-profile'
-        comment = "Created by: " + pc_username
+        comment = f"Created by: {pc_username}"
 
         ## L2TP Server binding
         l2tp_name = 'l2tp-' + name
