@@ -1,7 +1,7 @@
 import csv ##CSV file handling
 import os ##OS file handling
 import getpass ##OS username handling
-from netmiko import ConnectHandler
+from netmiko import ConnectHandler ##SSH handling
 
 ## Device system variables
 mt_username = input("Username: ")
@@ -30,19 +30,20 @@ input_csv_file = os.path.join(base_file_path, "l2tpclients.csv")
 
 ## Loop trough l2tp clients
 with open(input_csv_file, 'r') as configlist:
-    csv_reader = csv.reader(input_csv_file, delimiter=';')
-    next(csv_reader, None)
+    csv_reader = csv.reader(input_csv_file, delimiter=';') ##Define path and delimiter
+    next(csv_reader, None) ##Skip first line where names are defined
     
-    try:
+    try: ##Connect to Mikrotik
         net_connect = ConnectHandler(**mikrotik)
         print('Successfully logged in')
     
-    except Exception as e:
+    except Exception as e: ##Return error when error occurs.
         print("An error occurred for: ", mt_host, e)
-        exit
+        exit ##Stop script if connection fails
 
-    ## Define rows
+    ## Create loop
     for row in csv_reader:
+        ## Define rows
         name = row[0]
         password = row[1]
         dst_address = row[2]
