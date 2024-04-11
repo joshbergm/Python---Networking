@@ -51,6 +51,7 @@ with open(input_csv_file, 'r') as configlist:
         ## L2TP Client
         service = 'any'
         profile = 'vpn-profile'
+        comment = "Created by: " + pc_username
 
         ## L2TP Server binding
         l2tp_name = 'l2tp-' + name
@@ -61,7 +62,7 @@ with open(input_csv_file, 'r') as configlist:
         
         ## Define commands
         commands = [
-            'ppp secret add' + ' name=' + name + ' password=' + password + ' service=' + service + ' profile=' + profile,
+            'ppp secret add' + ' name=' + name + ' password=' + password + ' service=' + service + ' profile=' + profile + ' comment=' + comment,
             'interface l2tp-server add' + ' name=' + l2tp_name + ' user=' + user,
             'ip route add' + ' dst-address=' + dst_address + ' gateway=' + gateway
         ]
