@@ -35,6 +35,7 @@ with open(input_csv_file, 'r') as configlist:
     
     try:
         net_connect = ConnectHandler(**mikrotik)
+        print('Successfully logged in')
     
     except Exception as e:
         print("An error occurred for: ", mt_host, e)
@@ -65,5 +66,7 @@ with open(input_csv_file, 'r') as configlist:
         ]
         
         net_connect.send_config_set(commands)
+        print('Created: ' + l2tp_name)
         
     net_connect.disconnect()
+    print('Done, logged out successfully')
