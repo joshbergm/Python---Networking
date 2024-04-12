@@ -1,12 +1,14 @@
 # Mikrotik
 
 ## Introduction
-...
+Documentation page for Mikrotik scripts.
 
 ### Index
 
 - [01 - Create L2TP users from batch](#01---create-l2tp-users-from-batch)
 - [02 - Create L2TP users from batch with PMP](#02---create-l2tp-users-from-batch-pmp)
+
+---
 
 #### 01 - Create L2TP users from batch
 
@@ -135,6 +137,8 @@ Disconnect session after completion.
 net_connect.disconnect()
 print('Done, logged out successfully')
 ```
+
+---
 
 #### 02 - Create L2TP users from batch with PMP
 
