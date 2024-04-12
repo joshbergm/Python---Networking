@@ -66,8 +66,10 @@ with open(input_csv_file, 'r') as configlist:
             'ip route add' + ' dst-address=' + dst_address + ' gateway=' + gateway
         ]
         
+        ## Send commands and let user know which L2TP client is pushed
         net_connect.send_config_set(commands)
         print('Created: ' + l2tp_name)
         
+    ## Disconnect
     net_connect.disconnect()
     print('Done, logged out successfully')
