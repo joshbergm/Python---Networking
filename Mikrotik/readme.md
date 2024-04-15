@@ -21,7 +21,6 @@ Documentation page for Mikrotik scripts.
 
 Get user input such as username, password and IP to connect to Mikrotik device later in script.
 
----
 <br>
 
 ```python
