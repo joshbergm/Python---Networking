@@ -12,7 +12,13 @@ Documentation page for Mikrotik scripts.
 
 #### 01 - Create L2TP users from batch
 
+#### Important !
+> create a file named l2tpclients.csv (with CSV format and ; as delimiter), in the directory: c:/Users/%username%Documents/Python-Networking/Mikrotik/
+
 Get user input such as username, password and IP to connect to Mikrotik device later in script.
+
+---
+<br>
 
 ```python
 ## Device system variables
@@ -137,6 +143,8 @@ Disconnect session after completion.
 net_connect.disconnect()
 print('Done, logged out successfully')
 ```
+
+<br>
 
 ---
 
