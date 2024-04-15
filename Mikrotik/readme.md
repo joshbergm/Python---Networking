@@ -15,6 +15,10 @@ Documentation page for Mikrotik scripts.
 #### Important !
 > create a file named l2tpclients.csv (with CSV format and ; as delimiter), in the directory: c:/Users/%username%Documents/Python-Networking/Mikrotik/
 
+---
+
+#### Code explanation
+
 Get user input such as username, password and IP to connect to Mikrotik device later in script.
 
 ---
