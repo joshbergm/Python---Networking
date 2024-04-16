@@ -2,11 +2,15 @@ import csv ##CSV file handling
 import os ##OS file handling
 import getpass ##OS username handling
 from netmiko import ConnectHandler ##SSH handling
+from dotenv import load_dotenv ##.env file handling
+
+## Load .env file
+load_dotenv()
 
 ## Device system variables
-mt_username = input("Username: ")
-mt_password = getpass.getpass(prompt="Password: ", stream=None)
-mt_host = input("IP address: ")
+mt_username = os.getenv('priv_admin_username')
+mt_password = os.getenv('priv_admin_password')
+mt_host = os.getenv('mt_ip_address')
 
 ##Define CSV variables
 csv_delimiter = ';'
