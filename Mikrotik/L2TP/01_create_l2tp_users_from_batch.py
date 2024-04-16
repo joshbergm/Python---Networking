@@ -8,6 +8,9 @@ mt_username = input("Username: ")
 mt_password = getpass.getpass(prompt="Password: ", stream=None)
 mt_host = input("IP address: ")
 
+##Define CSV variables
+csv_delimiter = ';'
+
 ## Define Mikrotik variables
 device_type = 'mikrotik_routeros'
 port = '22'
@@ -30,7 +33,7 @@ input_csv_file = os.path.join(base_file_path, "l2tpclients.csv")
 
 ## Loop trough l2tp clients
 with open(input_csv_file, 'r') as configlist:
-    csv_reader = csv.reader(configlist, delimiter=';') ##Define path and delimiter
+    csv_reader = csv.reader(configlist, delimiter=csv_delimiter) ##Define path and delimiter
     next(csv_reader, None) ##Skip first line where names are defined
     
     try: ##Connect to Mikrotik
