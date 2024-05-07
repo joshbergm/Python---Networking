@@ -76,7 +76,7 @@ with open(input_csv_file, 'r') as configlist:
         with ftplib.FTP(mt_ipaddress, mt_username, mt_password) as ftp:
             with open (output_file, 'wb') as local_file:
                 ftp.retrbinary('RETR ' + remote_file, local_file.write)
-                print(f'Backup exported to: {output_folder}/{remote_file}.backup')
+                print(f'Backup exported to: {output_folder}/{remote_file}')
     
     ## Disconnect
     ssh_session.disconnect()
