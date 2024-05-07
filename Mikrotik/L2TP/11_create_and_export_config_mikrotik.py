@@ -68,7 +68,7 @@ with open(input_csv_file, 'r') as configlist:
         remote_file = f'config{filename}.backup'
         
         ## Export backup file to folder
-        ssh_session.send_command(f'/system backup save name={filename} password={filepass}')
+        ssh_session.send_command(f'/system backup save name={remote_file} password={filepass}')
         print(f'Backup created for: {filename}')
         
         output_file = os.path.join(f'{output_folder}/{remote_file}')
