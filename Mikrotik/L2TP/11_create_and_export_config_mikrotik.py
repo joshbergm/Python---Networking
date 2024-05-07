@@ -65,7 +65,7 @@ with open(input_csv_file, 'r') as configlist:
         print(f'Config done for: {ppp_username}')
         
         ## Define remote file
-        remote_file = f'{filename}.backup'
+        remote_file = f'config{filename}.backup'
         
         ## Export backup file to folder
         ssh_session.send_command(f'/system backup save name={filename} password={filepass}')
