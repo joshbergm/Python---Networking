@@ -29,7 +29,7 @@ mikrotik = {
 pc_username = getpass.getuser()
 
 ## Define file variables
-base_file_path = os.path.join("c:/Users/", pc_username, "Documents/Python-Networking/Mikrotik/")
+base_file_path = os.path.join("T:/ICT/Netwerk/Mikrotik/")
 input_csv_file = os.path.join(base_file_path, "mt_config.csv")
 output_folder = os.path.join(base_file_path, 'Configbackup/')
 
@@ -38,13 +38,8 @@ with open(input_csv_file, 'r') as configlist:
     csv_reader = csv.reader(configlist, delimiter=csv_delimiter) ##Define path and delimiter
     next(csv_reader, None) ##Skip first line where names are defined
     
-    try: ##Connect to Mikrotik
-        ssh_session = ConnectHandler(**mikrotik)
-        print('Successfully logged in')
-    
-    except Exception as e: ##Return error when error occurs.
-        print(f"An error occurred for: {mt_ipaddress}", e)
-        exit ##Stop script if connection fails
+    ## Create SSH Session
+    ssh_session = ConnectHandler(**mikrotik)
 
     ## Create loop
     for row in csv_reader:
@@ -61,7 +56,7 @@ with open(input_csv_file, 'r') as configlist:
         commands = [
             f'/interface l2tp-client set 0 user={ppp_username} password={ppp_password}',
             f'/ip address set numbers=1 address={ethernet3_address} network={ethernet3_network} netmask={ethernet3_netmask}',
-            f'/ip firewall filter set numbers=6 dst-address={firewall_subnet}'
+            f'/ip firewall filter set numbers=6 dst-address={firewall_subnet}',
             f'/ip firewall filter set numbers=11 dst-address={firewall_subnet}'
         ]
         
@@ -70,14 +65,16 @@ with open(input_csv_file, 'r') as configlist:
         print(f'Config done for: {ppp_username}')
         
         ## Define remote file
-        remote_file = filename
+        remote_file = f'{filename}.backup'
         
         ## Export backup file to folder
         ssh_session.send_command(f'/system backup save name={filename} password={filepass}')
         print(f'Backup created for: {filename}')
-
+        
+        output_file = os.path.join(f'{output_folder}/{filename}.backup')
+        
         with ftplib.FTP(mt_ipaddress, mt_username, mt_password) as ftp:
-            with open (output_folder, 'wb') as local_file:
+            with open (output_file, 'wb') as local_file:
                 ftp.retrbinary('RETR ' + remote_file, local_file.write)
                 print(f'Backup exported to: {output_folder}/{filename}.backup')
     
