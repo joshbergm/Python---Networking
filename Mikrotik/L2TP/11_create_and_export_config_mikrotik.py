@@ -71,12 +71,12 @@ with open(input_csv_file, 'r') as configlist:
         ssh_session.send_command(f'/system backup save name={filename} password={filepass}')
         print(f'Backup created for: {filename}')
         
-        output_file = os.path.join(f'{output_folder}/{filename}.backup')
+        output_file = os.path.join(f'{output_folder}/{remote_file}')
         
         with ftplib.FTP(mt_ipaddress, mt_username, mt_password) as ftp:
             with open (output_file, 'wb') as local_file:
                 ftp.retrbinary('RETR ' + remote_file, local_file.write)
-                print(f'Backup exported to: {output_folder}/{filename}.backup')
+                print(f'Backup exported to: {output_folder}/{remote_file}.backup')
     
     ## Disconnect
     ssh_session.disconnect()
