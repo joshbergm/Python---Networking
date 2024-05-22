@@ -20,10 +20,10 @@ delimiter = ';'
 pc_username = getpass.getuser()
 
 ## Get current time for file handling
-date = datetime.now().strftime('%d_%m_%Y')
+date = datetime.now().strftime('%d-%m-%Y')
 
 ## Base file path
-base_file_path = os.path.join("c:/Users/", pc_username, "Documents/Python-Networking/Switchlogging")
+base_file_path = os.path.join("T:/ICT/Netwerk/Switchlogging")
 
 ## Device CSV
 devicelist = os.path.join(f'{base_file_path}/devices.csv')
@@ -57,13 +57,15 @@ with open(devicelist, 'r') as devicelistcsv:
         
         try:
             ssh = ConnectHandler(**netmiko_device)
-            print(f'Connected to: {ip_address}')
+            print(f'Connected to: {hostname}')
         
         except Exception as e:
-            print(f'Error for: {ip_address}, {e}')
+            print(f'Error for: {hostname} with IP: {ip_address}, {e}')
         
         output = ssh.send_command(f'{show_command}')
         
-        with open(f'{output_folder}/{ip_address}_{date}.txt') as f:
+        with open(f'{output_folder}/{hostname}_{ip_address}_{date}.txt', 'w') as f:
             f.write(output)
-            print(f'Logs exported for: {ip_address}')
+            print(f'Logs exported for: {hostname}_{ip_address}')
+        
+        print('Done')
