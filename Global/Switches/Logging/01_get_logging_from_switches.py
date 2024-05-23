@@ -59,16 +59,18 @@ with open(devicelist, 'r') as devicelistcsv:
         try:
             ssh = ConnectHandler(**netmiko_device)
             print(f'Connected to: {hostname}')
+            
+            ## Get logging from switch
+            output = ssh.send_command(f'{show_command}')
         
+            ## Write logging to file
+            with open(f'{output_folder}/{hostname}_{ip_address}_{date}.txt', 'w') as f:
+                f.write(output)
+                print(f'Logs exported for: {hostname}_{ip_address}')
+                f.flush()
+            
         except Exception as e:
             print(f'Error for: {hostname} with IP: {ip_address}, {e}')
-        
-        ## Get logging from switch
-        output = ssh.send_command(f'{show_command}')
-        
-        ## Write logging to file
-        with open(f'{output_folder}/{hostname}_{ip_address}_{date}.txt', 'w') as f:
-            f.write(output)
-            print(f'Logs exported for: {hostname}_{ip_address}')
+            pass
         
     print('Done')
