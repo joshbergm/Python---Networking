@@ -71,4 +71,4 @@ with open(devicelist, 'r') as devicelistcsv:
             f.write(output)
             print(f'Logs exported for: {hostname}_{ip_address}')
         
-        print('Done')
+    print('Done')
