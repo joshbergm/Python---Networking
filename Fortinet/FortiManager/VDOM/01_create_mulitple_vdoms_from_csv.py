@@ -21,9 +21,13 @@ host = input("IP address: ")
 ## Get current username for file handling
 logged_in_user = getpass.getuser()
 
+## CSV variables
+csv_delimiter = ';'
+
 ## Define file paths
-base_file_path = os.path.join("")
-vdom_input_csv_file = os.path.join("")
+base_file_path = os.path.join("c:/Users/", logged_in_user, "Documents/Python-Networking/")
+vdom_input_csv_file = os.path.join("vdomcreationlist.csv")
+vdom_resource_input_csv_file = os.path.join("vdomresourcelist.csv")
 
 ## Ignore invalid SSL warning
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -59,16 +63,16 @@ session_id_json_ouput = login_request.json()
 session_id = session_id_json_ouput.get('session')
 
 ## Read CSV file for VDOM creation
-with open(vdom_input_csv_file, 'r') as objectlist:
-    csv_reader = csv.reader(objectlist, delimiter=';')
+with open(vdom_input_csv_file, 'r') as vdomlist:
+    csv_reader = csv.reader(vdomlist, delimiter=csv_delimiter)
     next(csv_reader, None)
 
 ## Loop trough CSV rules
     for row in csv_reader:
-        vdom_name = row[0]
+        vdom_name = row[0] ## VDOM name
         opmode = row[1] ## nat or transparent
-        comments = row[2]
-        device_name = row[3]
+        comments = row[2] ## comments in string format
+        device_name = row[3] ## device name in string format
 
         ## JSON RPC API Request
         payload_url = f'https://{host}/jsonrpc'
@@ -104,4 +108,20 @@ with open(vdom_input_csv_file, 'r') as objectlist:
 ## Let user know VDOM creation is done
 print("VDOM creation is done")
 
-## Configure VDOMs
+## Log out
+logout_body = {
+    "id": 1,
+    "method": "exec",
+    "params": [
+        {
+            "url": "/sys/logout"
+        }
+    ],
+    'session': session_id
+}
+
+logout_url = f'https://{host}/jsonrpc'
+logout_request = requests.post(logout_url, json=logout_body, headers=json_api_header, verify=False)
+
+## Print logout
+print("Logged out successfully")
