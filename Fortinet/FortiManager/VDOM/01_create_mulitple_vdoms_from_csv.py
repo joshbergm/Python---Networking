@@ -168,6 +168,12 @@ with open(vdom_input_csv_file, 'r') as vdomlist:
             ]
         }
 
+        vdom_resources_request = requests.post(payload_url, json=json_api_vdom_resources, headers=json_api_header, verify=False)
+        if vdom_resources_request.status_code == 200:
+            print(f'Resource limits set for VDOM: {vdom_name} at {device_name}')
+        else:
+            print(f'Resource limits failed for VDOM: {vdom_name} at {device_name}')
+
 ## Let user know VDOM creation is done
 print("VDOM creation is done")
 
