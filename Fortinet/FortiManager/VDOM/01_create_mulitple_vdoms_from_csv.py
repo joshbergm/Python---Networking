@@ -92,10 +92,10 @@ with open(vdom_input_csv_file, 'r') as vdomlist:
         comments = row[2] ## comments in string format
         device_name = row[3] ## device name in string format
         sslvpn_status = row[4] ## enable or disable
-        vdom_session = row[5]
-        vdom_firewall_policy = row[6]
-        vdom_firewall_address = row[7]
-        vdom_firewall_address_group = row[8]
+        vdom_session = row[5] ## Integer
+        vdom_firewall_policy = row[6] ## Integer
+        vdom_firewall_address = row[7] ## Integer
+        vdom_firewall_address_group = row[8] ## Integer
 
 
         ## JSON RPC API Request
