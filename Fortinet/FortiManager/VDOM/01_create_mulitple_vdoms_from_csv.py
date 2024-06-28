@@ -130,7 +130,7 @@ with open(vdom_input_csv_file, 'r') as vdomlist:
 
         ## SSLVPN settings for VDOM
         json_api_vdom_sslvpn_body = {
-            "method": "update",
+            "method": "set",
             "params": [
                 {
                     "data": [
@@ -151,8 +151,9 @@ with open(vdom_input_csv_file, 'r') as vdomlist:
         else:
             print(f'SSLVPN settings failed for VDOM: {vdom_name} at {device_name}')
 
+        ## Set VDOM resources
         json_api_vdom_resources = {
-            "method": "update",
+            "method": "set",
             "params": [
                 {
                     "data": [
@@ -165,7 +166,9 @@ with open(vdom_input_csv_file, 'r') as vdomlist:
                     ],
                     "url": f'/pm/config/device/{device_name}/global/system/vdom-property/{vdom_name}'
                 }
-            ]
+            ],
+            "session": session_id,
+			"id": 1
         }
 
         vdom_resources_request = requests.post(payload_url, json=json_api_vdom_resources, headers=json_api_header, verify=False)
