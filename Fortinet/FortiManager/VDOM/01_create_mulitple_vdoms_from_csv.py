@@ -133,12 +133,11 @@ with open(vdom_input_csv_file, 'r') as vdomlist:
             "method": "set",
             "params": [
                 {
-                    "data": [
+                    "data":
                         {
                             "status": sslvpn_status
-                        }
-                    ],
-                    "url": f'/pm/config/device/{device_name}/vdom/{vdom_name}/vpn/ssl/settings'
+                        },
+                    "url": f"/pm/config/device/{device_name}/vdom/{vdom_name}/vpn/ssl/settings"
                 }
             ],
             "session": session_id,
@@ -156,15 +155,14 @@ with open(vdom_input_csv_file, 'r') as vdomlist:
             "method": "set",
             "params": [
                 {
-                    "data": [
+                    "data":
                         {
-                            "firewall-address": vdom_firewall_address,
-                            "firewall-addrgrp": vdom_firewall_address_group,
-                            "firewall-policy": vdom_firewall_policy,
-                            "session": vdom_session
-                        }
-                    ],
-                    "url": f'/pm/config/device/{device_name}/global/system/vdom-property/{vdom_name}'
+                            "firewall-address": [vdom_firewall_address],
+                            "firewall-addrgrp": [vdom_firewall_address_group],
+                            "firewall-policy": [vdom_firewall_policy],
+                            "session": [vdom_session]
+                        },
+                    "url": f"/pm/config/device/{device_name}/global/system/vdom-property/{vdom_name}"
                 }
             ],
             "session": session_id,
@@ -181,12 +179,12 @@ with open(vdom_input_csv_file, 'r') as vdomlist:
 print("VDOM creation is done")
 
 ## Unlock ADOM
-payload_url_unlock_adom = f'https://{host}/jsonrpc'
+payload_url_unlock_adom = f"https://{host}/jsonrpc"
 json_api_adom_unlock_body = {
         "method": "exec",
         "params": [
             {
-                "url": f'/dvmdb/adom/{adom}/workspace/unlock'
+                "url": f"/dvmdb/adom/{adom}/workspace/unlock"
             }
         ],
         "session": session_id,
