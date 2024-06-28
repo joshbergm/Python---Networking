@@ -91,11 +91,17 @@ with open(vdom_input_csv_file, 'r') as vdomlist:
         opmode = row[1] ## nat or transparent
         comments = row[2] ## comments in string format
         device_name = row[3] ## device name in string format
+        sslvpn_status = row[4] ## enable or disable
+        vdom_session = row[5]
+        vdom_firewall_policy = row[6]
+        vdom_firewall_address = row[7]
+        vdom_firewall_address_group = row[8]
+
 
         ## JSON RPC API Request
         payload_url = f'https://{host}/jsonrpc'
         
-        ## JSON RPC API Data
+        ## VDOM creation body
         json_api_vdom_body = {
 			"method": "add",
 			"params": [
@@ -121,6 +127,46 @@ with open(vdom_input_csv_file, 'r') as vdomlist:
             print(f'Created VDOM: {vdom_name} at {device_name}')
         else:
             print(f'Request failed for VDOM: {vdom_name} at {device_name}, error code: {vdom_create_request.status_code}')
+
+        ## SSLVPN settings for VDOM
+        json_api_vdom_sslvpn_body = {
+            "method": "update",
+            "params": [
+                {
+                    "data": [
+                        {
+                            "status": sslvpn_status
+                        }
+                    ],
+                    "url": f'/pm/config/device/{device_name}/vdom/{vdom_name}/vpn/ssl/settings'
+                }
+            ],
+            "session": session_id,
+			"id": 1
+        }
+
+        vdom_sslvpn_request = requests.post(payload_url, json=json_api_vdom_sslvpn_body, headers=json_api_header, verify=False)
+        if vdom_sslvpn_request.status_code == 200:
+            print(f'SSLVPN settings changed for VDOM: {vdom_name} at {device_name}')
+        else:
+            print(f'SSLVPN settings failed for VDOM: {vdom_name} at {device_name}')
+
+        json_api_vdom_resources = {
+            "method": "update",
+            "params": [
+                {
+                    "data": [
+                        {
+                            "firewall-address": vdom_firewall_address,
+                            "firewall-addrgrp": vdom_firewall_address_group,
+                            "firewall-policy": vdom_firewall_policy,
+                            "session": vdom_session
+                        }
+                    ],
+                    "url": f'/pm/config/device/{device_name}/global/system/vdom-property/{vdom_name}'
+                }
+            ]
+        }
 
 ## Let user know VDOM creation is done
 print("VDOM creation is done")
