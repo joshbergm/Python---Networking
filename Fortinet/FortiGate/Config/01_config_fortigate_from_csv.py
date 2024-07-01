@@ -44,7 +44,7 @@ phase2_ipsecvpnapi = f'{ipsecvpnapi}/phase2'
 phase2interface_ipsecvpnapi = f'{ipsecvpnapi}/phase2-interface'
 
 ### Addresses
-...
+addressapi = f'{defaultapiurl}/cmdb/firewall/address'
 
 ### Policies
 policyapi = f'{defaultapiurl}/cmdb/firewall/policy'
@@ -78,7 +78,6 @@ csv_policies = os.path.join(f'{config_file_path}/policies.csv')
 
 ## Modules
 ### Global system settings
-
 ##################################################################
 
 ### Interfaces
@@ -135,7 +134,6 @@ with open(csv_interfaces, 'r') as interfaces:
 with open(csv_vpns, 'r') as vpns:
     csv_reader = csv.reader(vpns, delimiter=csv_delimiter)
     next(csv_reader, None)
-
     ######################################################################
 
 ### Addresses
@@ -143,7 +141,46 @@ with open(csv_addresses, 'r') as addresses:
     csv_reader = csv.reader(vpns, delimiter=csv_delimiter)
     next(csv_reader, None)
 
-    ######################################################################
+    for row in csv_reader:
+        address_name = row[0]
+        address_subnet = row[1] ## if type is ipmask
+        address_type = row[2] ##ipmask, iprange, fqdn, geography
+        address_start_ip = row[3] ## if type is iprange
+        address_end_ip = row[4] ##if type is iprange
+        address_fqdn = row[5] ## if type is fqdn
+        address_wildcard_fqdn = row[6] ##if type is fqdn
+        address_geography = row[7] ## if type is geography, country code e.g. NL
+        address_cache_ttl = int(row[8]) ## set time in seconds for cache, 0 - 86400 
+        address_interface = row[9]
+        address_comment = row[10]
+        address_vdom = row[11] ## default is root
+
+        addressapi_body = {
+                "params": {
+                    "vdom": address_vdom
+                },
+                "data": {
+                    "name": address_name,
+                    "subnet": address_subnet,
+                    "type": address_type,
+                    "start-ip": address_start_ip,
+                    "end-ip": address_end_ip,
+                    "fqdn": address_fqdn,
+                    "country": address_geography,
+                    "wildcard-fqdn": address_wildcard_fqdn,
+                    "cache-ttl": address_cache_ttl,
+                    "comment": address_comment,
+                    "associated-interface": {
+                        "q_origin_key": address_interface
+                    },
+                }
+            }
+    
+        addressapi_request = create_address(addressapi, addressapi_body, api_header)
+        if addressapi_request.status_code == 200:
+            print(f'Address creation for {address_name} succesfull')
+        else:
+            print(f'Address creation for {address_name} failed')
 
 ### Policies
 with open(csv_policies, 'r') as policies:
