@@ -31,6 +31,7 @@ defaultapiurl = f'https://{fortigate_ip}:{fortigate_port}/api/v2'
 
 ## Specific API prefixes
 ### Global system settings
+...
 
 ### Interfaces
 interfaceapi = f'{defaultapiurl}/cmdb/sytem/interface'
@@ -41,6 +42,9 @@ phase1_ipsecvpnapi = f'{ipsecvpnapi}/phase1'
 phase1interface_ipsecvpnapi = f'{ipsecvpnapi}/phase1-interface'
 phase2_ipsecvpnapi = f'{ipsecvpnapi}/phase2'
 phase2interface_ipsecvpnapi = f'{ipsecvpnapi}/phase2-interface'
+
+### Addresses
+...
 
 ### Policies
 policyapi = f'{defaultapiurl}/cmdb/firewall/policy'
@@ -55,6 +59,10 @@ def create_vpn(api_url, api_body, headers):
     response = apisession.post(api_url, json=api_body, headers=headers)
     return response
 
+def create_address(api_url, api_body, headers):
+    response = apisession.post(api_url, json=api_body, headers=headers)
+    return response
+
 def create_policy(api_url, api_body, headers):
     response = apisession.post(api_url, json=api_body, headers=headers)
     return response
@@ -65,6 +73,7 @@ config_file_path = os.path.join(f'c:/Users/{windowsusername}/Documents/Python-Ne
 csv_config = os.path.join(f'{config_file_path}/settings.txt')
 csv_interfaces = os.path.join(f'{config_file_path}/interfaces.csv')
 csv_vpns = os.path.join(f'{config_file_path}/vpns.csv')
+csv_addresses = os.path.join(f'{config_file_path}/addresses.csv')
 csv_policies = os.path.join(f'{config_file_path}/policies.csv')
 
 ## Modules
@@ -124,6 +133,13 @@ with open(csv_interfaces, 'r') as interfaces:
 
 ### VPN's
 with open(csv_vpns, 'r') as vpns:
+    csv_reader = csv.reader(vpns, delimiter=csv_delimiter)
+    next(csv_reader, None)
+
+    ######################################################################
+
+### Addresses
+with open(csv_addresses, 'r') as addresses:
     csv_reader = csv.reader(vpns, delimiter=csv_delimiter)
     next(csv_reader, None)
 
