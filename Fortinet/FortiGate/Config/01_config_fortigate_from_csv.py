@@ -161,18 +161,18 @@ if input("Do you want to create addresses? (y/n): ").lower() == 'y':
         next(csv_reader, None)
 
         for row in csv_reader:
-            address_name = row[0]
-            address_subnet = row[1]
-            address_type = row[2]
-            address_start_ip = row[3]
-            address_end_ip = row[4]
-            address_fqdn = row[5]
-            address_wildcard_fqdn = row[6]
-            address_geography = row[7]
-            address_cache_ttl = int(row[8])
-            address_interface = row[9]
-            address_comment = row[10]
-            address_vdom = row[11] if row[11] else 'root'
+            address_name = row[0] ## Address name
+            address_subnet = row[1] ## Address subnet e.g. 1.1.1.1/32
+            address_type = row[2] ## Address type e.g. ipmask, iprange, fqdn, wildcard-fqdn, geography
+            address_start_ip = row[3] ## Specify start IP if type is iprange
+            address_end_ip = row[4] ## Specify end IP if type is iprange
+            address_fqdn = row[5] ## Speciffy FQDN if type is fqdn
+            address_wildcard_fqdn = row[6] ## Specify wildcard fqdn if type is fqdn
+            address_geography = row[7] ## Specify country code e.g. NL
+            address_cache_ttl = int(row[8]) ## Specify cache TTL in seconds between 0 - 86400
+            address_interface = row[9] ## Specify address interface or zone
+            address_comment = row[10] ## Specify comment
+            address_vdom = row[11] if row[11] else 'root' ## If value is empty use vdom root as default
 
             addressapi_body = {
                 "params": {
@@ -207,18 +207,18 @@ if input("Do you want to create policies? (y/n): ").lower() == 'y':
         next(csv_reader, None)
 
         for row in csv_reader:
-            policy_name = row[0]
-            policy_source_interface = row[1]
-            policy_destination_interface = row[2]
-            policy_source_address = row[3]
-            policy_destination_address = row[4]
-            policy_schedule = row[5]
-            policy_service = row[6]
-            policy_action = row[7]
-            policy_nat = row[8]
-            policy_logging = row[9]
-            policy_status = row[11]
-            policy_vdom = row[12] if row[12] else 'root'
+            policy_name = row[0] ## Policy name
+            policy_source_interface = row[1] ## Policy source interface
+            policy_destination_interface = row[2] ## Policy destination interface
+            policy_source_address = row[3] ## Policy source address
+            policy_destination_address = row[4] ## Policy destination address
+            policy_schedule = row[5] if row[5] else 'always' ## If value is blank use always as default
+            policy_service = row[6] ## Policy service e.g. SSH
+            policy_action = row[7] ## accept / deny
+            policy_nat = row[8] ## enable / disable
+            policy_logging = row[9] ## .....
+            policy_status = row[11] ## enable / disable
+            policy_vdom = row[12] if row[12] else 'root' ## If value is blank use vdom root as default
 
             policyapi_body = {
                 "params": {
