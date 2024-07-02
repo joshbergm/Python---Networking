@@ -189,9 +189,7 @@ if input("Do you want to create addresses? (y/n): ").lower() == 'y':
                     "wildcard-fqdn": address_wildcard_fqdn,
                     "cache-ttl": address_cache_ttl,
                     "comment": address_comment,
-                    "associated-interface": {
-                        "q_origin_key": address_interface
-                    },
+                    "associated-interface": address_interface
                 }
             }
 
