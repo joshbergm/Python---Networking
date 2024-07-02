@@ -151,7 +151,7 @@ if input("Do you want to create zones? (y/n): ").lower() == 'y':
 
             zoneapi_request = create_zone(zoneapi, zoneapi_body, api_header)
             if zoneapi_request.status_code == 200:
-                print(f'Zone creation for {zone_name} successful')
+                print(f'Zone creation for {zone_name} successfull')
             else:
                 print(f'Zone creation for {zone_name} failed, code: {zoneapi_request.status_code}')
 
@@ -197,7 +197,7 @@ if input("Do you want to create addresses? (y/n): ").lower() == 'y':
 
             addressapi_request = create_address(addressapi, addressapi_body, api_header)
             if addressapi_request.status_code == 200:
-                print(f'Address creation for {address_name} successful')
+                print(f'Address creation for {address_name} successfull')
             else:
                 print(f'Address creation for {address_name} failed, code: {addressapi_request.status_code}')
 
@@ -261,6 +261,6 @@ if input("Do you want to create policies? (y/n): ").lower() == 'y':
 
             policyapi_request = create_policy(policyapi, policyapi_body, api_header)
             if policyapi_request.status_code == 200:
-                print(f'Policy creation for {policy_name} successful')
+                print(f'Policy creation for {policy_name} successfull')
             else:
-                print(f'Policy creation for {policy_name} failed')
+                print(f'Policy creation for {policy_name} failed, code: {policyapi_request.status_code}')
