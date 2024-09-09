@@ -26,7 +26,7 @@ def main(file_path):
         # Wait for Ctrl+V to be pressed
         while True:
             if keyboard.is_pressed('ctrl+v'):
-                time.sleep(0.5)  # debounce the input to avoid multiple detections
+                time.sleep(0.2)  # debounce the input to avoid multiple detections
                 break
 
 if __name__ == "__main__":
