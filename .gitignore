@@ -1,4 +1,11 @@
+# Ignore a specific CSV file inside Fortinet directory
 Fortinet/iplist.csv
+
+# Ignore a specific .env file inside Mikrotik/L2TP directory
 Mikrotik/L2TP/.env
-Fortinet/FortiGate/PBR
-ClipboardTool
+
+# Ignore everything inside Fortinet/FortiGate/PBR directory
+Fortinet/FortiGate/PBR/
+
+# Ignore a specific text file inside ClipboardTool directory
+ClipboardTool/rules.txt
