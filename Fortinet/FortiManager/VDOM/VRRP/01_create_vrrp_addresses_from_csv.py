@@ -19,7 +19,7 @@ fmg_password = getpass.getpass(prompt="Password: ", stream=None)
 fmg_ip_address = input("IP address: ")
 
 ## FortiManager ADOM variable
-adom = "1PLATFORM"
+adom = "root"
 
 ## Get current username for file handling
 win_username = getpass.getuser()
