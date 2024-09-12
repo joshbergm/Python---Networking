@@ -143,7 +143,7 @@ if session_id:
                 "id": 1
             }
             
-            ## Define VRRP address body
+            ## Define interface body
             json_api_vrrp_mac_intf_body = {
                 "method": "add",
                 "params": [
