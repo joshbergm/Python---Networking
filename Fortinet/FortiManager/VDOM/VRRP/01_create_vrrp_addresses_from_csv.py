@@ -91,7 +91,7 @@ if session_id:
     ## Call ADOM lock function
     lock_adom()
 
-    ########################################## CREATE VRRP ADDRESSES ##########################################
+    ########################################## VRRP CONFIG ##########################################
 
     ## Create VRRP address function
     def create_vrrp_address(json_api_vrrp_address_body):
@@ -100,6 +100,14 @@ if session_id:
             print(f'Successfully created VRRP config')
         else:
             print(f'Failed to create VRRP config, error code: {response.status_code}, error: {response.text}')
+            
+    def set_vrrp_mac_interface():
+        response = apisession.post(json_rpc_api_url, json=json_api_vrrp_mac_intf_body, headers=json_api_header, verify=False)
+        if response.status_code == 200:
+            print(f'Successfully applied VRRP MAC config')
+        else:
+            print(f'Failed to apply VRRP MAC config, error code: {response.status_code}, error: {response.text}')
+        
 
     ## Read CSV file for VRRP creation
     with open(vrrp_address_csv_file, 'r') as vdomlist:
@@ -134,10 +142,30 @@ if session_id:
                 "session": session_id,
                 "id": 1
             }
+            
+            ## Define VRRP address body
+            json_api_vrrp_mac_intf_body = {
+                "method": "add",
+                "params": [
+                    {
+                        "data": [
+                            {
+                                "vrrp-virtual-mac": "enable",
+                            }
+                        ],
+                        "url": f"/pm/config/device/{device_name}/global/system/interface/{interface_name} (update)"
+                    }
+                ],
+                "session": session_id,
+                "id": 1
+            }
 
             ## Create VRRP configuration
             create_vrrp_address(json_api_vrrp_address_body)
-
+            
+            ## Set VRRP MAC
+            set_vrrp_mac_interface(json_api_vrrp_mac_intf_body)
+    
     ########################################## UNLOCK ADOM ##########################################
 
     ## Define JSON API Body for unlocking ADOM
