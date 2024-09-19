@@ -105,7 +105,7 @@ if session_id:
     def set_vrrp_mac_interface(json_api_vrrp_mac_intf_body):
         response = apisession.post(json_rpc_api_url, json=json_api_vrrp_mac_intf_body, headers=json_api_header, verify=False)
         if response.status_code == 200:
-            print(f'Successfully applied VRRP MAC config fpr {interface_name}')
+            print(f'Successfully applied VRRP MAC config for {interface_name}')
         else:
             print(f'Failed to apply VRRP MAC config, error code: {response.status_code}, error: {response.text}')
         
