@@ -162,11 +162,11 @@ if session_id:
 
             ## Create VRRP configuration
             create_vrrp_address(json_api_vrrp_address_body)
-            sleep(0.1)
+            sleep(0.01)
             
             ## Set VRRP MAC
             set_vrrp_mac_interface(json_api_vrrp_mac_intf_body)
-            sleep(0.1)
+            sleep(0.01)
     
     ########################################## UNLOCK ADOM ##########################################
 
