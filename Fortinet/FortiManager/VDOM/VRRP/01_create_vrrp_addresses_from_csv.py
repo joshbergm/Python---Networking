@@ -97,14 +97,14 @@ if session_id:
     def create_vrrp_address(json_api_vrrp_address_body):
         response = apisession.post(json_rpc_api_url, json=json_api_vrrp_address_body, headers=json_api_header, verify=False)
         if response.status_code == 200:
-            print(f'Successfully created VRRP config')
+            print(f'Successfully created VRRP config for {interface_name}')
         else:
             print(f'Failed to create VRRP config, error code: {response.status_code}, error: {response.text}')
             
-    def set_vrrp_mac_interface():
+    def set_vrrp_mac_interface(json_api_vrrp_mac_intf_body):
         response = apisession.post(json_rpc_api_url, json=json_api_vrrp_mac_intf_body, headers=json_api_header, verify=False)
         if response.status_code == 200:
-            print(f'Successfully applied VRRP MAC config')
+            print(f'Successfully applied VRRP MAC config fpr {interface_name}')
         else:
             print(f'Failed to apply VRRP MAC config, error code: {response.status_code}, error: {response.text}')
         
@@ -153,7 +153,7 @@ if session_id:
                                 "vrrp-virtual-mac": "enable",
                             }
                         ],
-                        "url": f"/pm/config/device/{device_name}/global/system/interface/{interface_name} (update)"
+                        "url": f"/pm/config/device/{device_name}/global/system/interface/{interface_name}"
                     }
                 ],
                 "session": session_id,
