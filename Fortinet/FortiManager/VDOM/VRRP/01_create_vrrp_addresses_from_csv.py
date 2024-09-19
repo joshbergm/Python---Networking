@@ -12,6 +12,7 @@ import requests ##API handling
 import os ##OS file handling
 import getpass ##OS username handling
 import urllib3 ##Suppress SSL warning
+from time import sleep
 
 ## FortiManager login variables
 fmg_username = input("Username: ")
@@ -145,26 +146,27 @@ if session_id:
             
             ## Define interface body
             json_api_vrrp_mac_intf_body = {
-                "method": "add",
-                "params": [
-                    {
-                        "data": [
-                            {
-                                "vrrp-virtual-mac": "enable",
-                            }
-                        ],
-                        "url": f"/pm/config/device/{device_name}/global/system/interface/{interface_name}"
-                    }
-                ],
-                "session": session_id,
-                "id": 1
-            }
+				"method": "update",
+				"params": [
+					{
+						"data": {
+							"vrrp-virtual-mac": "enable"
+						},
+						"url": f"/pm/config/device/{device_name}/global/system/interface/{interface_name}"
+					}
+				],
+				"session": session_id,
+				"id": 1
+			}
+
 
             ## Create VRRP configuration
             create_vrrp_address(json_api_vrrp_address_body)
+            sleep(0.1)
             
             ## Set VRRP MAC
             set_vrrp_mac_interface(json_api_vrrp_mac_intf_body)
+            sleep(0.1)
     
     ########################################## UNLOCK ADOM ##########################################
 
