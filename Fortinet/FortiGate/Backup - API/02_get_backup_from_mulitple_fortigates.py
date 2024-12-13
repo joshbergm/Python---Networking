@@ -63,7 +63,7 @@ with open(ip_address_list_input, 'r') as ip_address_list:
         hostname_api_request = (f'https://{ip}:{port}/api/v2/cmdb/system/global?scope=vdom&vdom={vdom}&access_token={token}')
 
         ## Define API request URL
-        backup_api_request =(f'https://{ip}:{port}/api/v2/monitor/system/config/backup?scope=vdom&vdom={vdom}&access_token={token}')
+        backup_api_request =(f'https://{ip}:{port}/api/v2/monitor/system/config/backup?scope=global&access_token={token}')
 
         ### Send GET request
         backup_file_response = client.get(backup_api_request)

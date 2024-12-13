@@ -30,7 +30,7 @@ client = requests.session()
 client.verify = False
 
 ## Get hostname for file name
-hostname_api_request = (f'https://{fortigate_ip}:{port}/api/v2/cmdb/system/global?scope=vdom&vdom={vdom}&access_token={token}')
+hostname_api_request = (f'https://{fortigate_ip}:{port}/api/v2/cmdb/system/global?scope=global&access_token={token}')
 
 ## Define API request URL
 backup_api_request =(f'https://{fortigate_ip}:{port}/api/v2/monitor/system/config/backup?scope=vdom&vdom={vdom}&access_token={token}')
