@@ -2,7 +2,7 @@
 ##      - Config backup script via FortiGate API            ##
 ##      - Author: Joshua Bergman                            ##
 ##      - Version: 0.1 (Draft)                              ##
-##      - Date: 22-03-2024                                  ##
+##      - Date: 24-12-2024                                  ##
 ##############################################################
 
 from fortigate_api import FortiGateAPI
